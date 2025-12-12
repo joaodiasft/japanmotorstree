@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Japan Motors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Rajdhani:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          container: {
+            center: true,
+            padding: {
+              DEFAULT: "1rem",
+              sm: "2rem",
+              lg: "4rem",
+              xl: "5rem",
+              "2xl": "6rem",
+            },
+          },
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: "#2563eb",
+                hover: "#1d4ed8",
+                light: "#60a5fa",
+                glow: "rgba(37, 99, 235, 0.5)",
+              },
+              secondary: {
+                DEFAULT: "#000000",
+                surface: "#1a1a1a",
+                border: "#333333",
+              },
+
+              neutral: {
+                50: "#f9fafb",
+                100: "#f3f4f6",
+                200: "#e5e7eb",
+                300: "#d1d5db",
+                800: "#1f2937",
+                900: "#111827",
+              },
+
+              status: {
+                success: "#10b981",
+                warning: "#f59e0b",
+                error: "#ef4444",
+                info: "#3b82f6",
+              },
+            },
+
+            fontFamily: {
+              sans: ["Montserrat", "ui-sans-serif", "system-ui", "sans-serif"],
+              tech: ["Rajdhani", "ui-monospace", "SFMono-Regular", "monospace"],
+              display: ["Oswald", "sans-serif"],
+            },
+
+            spacing: {
+              18: "4.5rem",
+              112: "28rem",
+              128: "32rem",
+            },
+
+            boxShadow: {
+              neon: '0 0 5px theme("colors.primary.DEFAULT"), 0 0 20px theme("colors.primary.glow")',
+              card: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+              "card-hover":
+                "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+            },
+            borderRadius: {
+              xl: "1rem",
+              "2xl": "1.5rem",
+            },
+
+            animation: {
+              "fade-in": "fadeIn 0.6s ease-out forwards",
+              "slide-up": "slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+              "slide-down":
+                "slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+              "scale-in": "scaleIn 0.4s ease-out forwards",
+              "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              "spin-slow": "spin 3s linear infinite",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%": { opacity: "0", transform: "translateY(30px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              slideDown: {
+                "0%": { opacity: "0", transform: "translateY(-30px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              scaleIn: {
+                "0%": { opacity: "0", transform: "scale(0.95)" },
+                "100%": { opacity: "1", transform: "scale(1)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --bg-color: #ffffff;
+        --bg-gradient: radial-gradient(
+          circle at 50% 0%,
+          #f9fafb 0%,
+          #ffffff 80%
+        );
+        --text-primary: #111827;
+        --text-secondary: #4b5563;
+        --glass-bg: rgba(255, 255, 255, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.5);
+        --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        --btn-glass-bg: rgba(0, 0, 0, 0.03);
+        --btn-glass-border: rgba(0, 0, 0, 0.05);
+        --overlay-bg: rgba(0, 0, 0, 0.3);
+      }
+
+      .dark body {
+        --bg-color: #000000;
+        --bg-gradient: radial-gradient(
+          circle at 50% 0%,
+          #1a1a1a 0%,
+          #000000 80%
+        );
+        --text-primary: #f3f4f6;
+        --text-secondary: #9ca3af;
+        --glass-bg: rgba(20, 20, 20, 0.6);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        --btn-glass-bg: rgba(255, 255, 255, 0.05);
+        --btn-glass-border: rgba(255, 255, 255, 0.1);
+        --overlay-bg: rgba(0, 0, 0, 0.8);
+      }
+
+      body {
+        background-color: var(--bg-color);
+        background-image: var(--bg-gradient);
+        color: var(--text-primary);
+        font-family: "Montserrat", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition: background-color 0.5s ease, color 0.5s ease;
+        overflow-x: hidden;
+      }
+
+      ::selection {
+        background: rgba(37, 99, 235, 0.3);
+        color: inherit;
+      }
+
+      .hide-scroll::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scroll {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .custom-scroll::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      .custom-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scroll::-webkit-scrollbar-thumb {
+        background: rgba(156, 163, 175, 0.5);
+        border-radius: 10px;
+      }
+      .custom-scroll::-webkit-scrollbar-thumb:hover {
+        background: rgba(156, 163, 175, 0.8);
+      }
+
+      .glass-panel {
+        background: var(--glass-bg);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--glass-shadow);
+
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+      }
+
+      .glass-btn {
+        background: var(--btn-glass-bg);
+        border: 1px solid var(--btn-glass-border);
+        color: var(--text-primary);
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .glass-btn:hover {
+        background: rgba(37, 99, 235, 0.1); /* Tint azul sutil no hover */
+        border-color: rgba(37, 99, 235, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+      }
+
+      .glass-btn:active {
+        transform: scale(0.97) translateY(0);
+      }
+
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: var(--overlay-bg);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal-content {
+        transform: scale(0.9) translateY(20px);
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* Efeito elástico sutil "spring" */
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal-overlay.active .modal-content {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+
+      #preloader {
+        position: fixed;
+        inset: 0;
+        background: var(--bg-color);
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.6s ease, visibility 0.6s;
+      }
+
+      #preloader.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .spinner-tech {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(37, 99, 235, 0.2);
+        border-radius: 50%;
+        border-top-color: #2563eb;
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen pb-10 selection:bg-primary selection:text-white relative"
+  >
+    <!-- 1. PRELOADER -->
+    <div
+      id="preloader"
+      class="bg-neutral-50 dark:bg-secondary-surface transition-colors duration-500"
+    >
+      <div class="relative w-40 h-40 flex items-center justify-center">
+        <div
+          class="absolute inset-0 border-[3px] border-transparent border-t-primary border-l-primary/30 rounded-full animate-spin duration-[1.5s]"
+        ></div>
+
+        <div
+          class="absolute inset-3 border-[3px] border-transparent border-b-neutral-400 dark:border-b-neutral-600 rounded-full animate-spin-slow direction-reverse"
+        ></div>
+
+        <div
+          class="absolute inset-0 bg-primary/5 rounded-full animate-ping opacity-20"
+        ></div>
+
+        <img
+          src="https://i.im.ge/2025/12/12/4vPKLa.sss.png"
+          alt="Japan Motors"
+          class="w-20 h-20 object-contain animate-pulse relative z-10 drop-shadow-xl dark:brightness-200 dark:drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]"
+        />
+      </div>
+
+      <div class="mt-8 text-center">
+        <p
+          class="font-tech text-neutral-800 dark:text-neutral-200 tracking-[0.3em] text-sm font-bold uppercase animate-pulse"
+        >
+          Japan Motors
+        </p>
+        <p
+          class="text-xs text-primary font-tech tracking-widest mt-1 opacity-80"
+        >
+          CARREGANDO EXPERIÊNCIA...
+        </p>
+      </div>
+    </div>
+
+    <main
+      id="app"
+      class="max-w-md mx-auto relative opacity-0 transition-all duration-500"
+    >
+      <!-- HEADER / HERO -->
+      <header
+        class="pt-10 pb-6 px-6 text-center flex flex-col items-center relative z-10"
+      >
+        <div class="relative mb-6 group cursor-pointer">
+          <div
+            class="absolute inset-0 bg-primary/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          ></div>
+
+          <img
+            id="logo-img"
+            src=""
+            alt="Japan Motors Logo"
+            class="relative w-36 h-36 object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 dark:brightness-200 dark:drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+          />
+        </div>
+
+        <h1
+          class="font-tech text-4xl font-bold uppercase tracking-wide text-neutral-900 dark:text-white mb-2 transition-colors"
+        >
+          Japan <span class="text-primary">Motors</span>
+        </h1>
+
+        <p
+          class="text-neutral-500 dark:text-neutral-400 text-xs font-medium tracking-[0.2em] uppercase mb-8 border-b border-neutral-200 dark:border-neutral-800 pb-4 w-2/3 mx-auto"
+        >
+          Vendas de motos diversas Compra • Venda • Troca
+        </p>
+
+        <div class="w-full grid gap-4">
+          <a
+            id="btn-whatsapp-main"
+            href="#"
+            class="w-full py-4 bg-primary hover:bg-primary-hover text-white font-tech font-bold text-lg uppercase tracking-wider rounded-xl shadow-neon hover:shadow-[0_0_20px_rgba(37,99,235,0.6)] transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3"
+          >
+            <i data-lucide="message-circle" class="w-6 h-6"></i>
+            Falar com vendedor
+          </a>
+
+          <a
+            id="btn-catalog"
+            href="https://wa.me/c/556292124400"
+            class="glass-btn w-full py-4 font-bold uppercase text-sm tracking-wide rounded-xl flex items-center justify-center gap-2 hover:text-primary transition-all shadow-sm"
+          >
+            <i data-lucide="book-open" class="w-5 h-5"></i>
+            Ver Catálogo Completo
+          </a>
+        </div>
+      </header>
+
+      <!-- AÇÕES RÁPIDAS -->
+      <section class="px-5 my-8 relative z-10">
+        <h3
+          class="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 font-tech uppercase tracking-[0.3em] mb-3 pl-2"
+        >
+          Ações Rápidas
+        </h3>
+
+        <div
+          class="glass-panel rounded-2xl flex items-stretch divide-x divide-neutral-200/50 dark:divide-white/10 overflow-hidden shadow-lg relative"
+        >
+          <button
+            onclick="openModal('modal-venda')"
+            class="flex-1 flex flex-col items-center justify-center py-5 px-2 group hover:bg-primary/5 transition-all relative active:bg-primary/10"
+          >
+            <div
+              class="absolute top-0 left-0 w-full h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left"
+            ></div>
+
+            <div
+              class="mb-3 p-2 rounded-xl bg-neutral-100 dark:bg-white/5 text-neutral-600 dark:text-neutral-300 group-hover:text-primary group-hover:scale-110 transition-all duration-300 shadow-sm"
+            >
+              <i data-lucide="dollar-sign" class="w-6 h-6"></i>
+            </div>
+            <span
+              class="font-tech font-bold uppercase tracking-wider text-xs text-neutral-800 dark:text-white"
+            >
+              Vender
+            </span>
+          </button>
+
+          <button
+            onclick="openModal('modal-compra')"
+            class="flex-1 flex flex-col items-center justify-center py-5 px-2 group hover:bg-primary/5 transition-all relative active:bg-primary/10 relative z-10"
+          >
+            <div
+              class="absolute top-0 left-0 w-full h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-center"
+            ></div>
+
+            <div
+              class="mb-3 p-3 -mt-1 rounded-xl bg-primary/10 text-primary ring-4 ring-white dark:ring-neutral-900 group-hover:bg-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-neon transition-all duration-300"
+            >
+              <i data-lucide="shopping-bag" class="w-7 h-7"></i>
+            </div>
+            <span
+              class="font-tech font-bold uppercase tracking-wider text-sm text-primary"
+            >
+              Comprar
+            </span>
+          </button>
+
+          <button
+            onclick="openModal('modal-troca')"
+            class="flex-1 flex flex-col items-center justify-center py-5 px-2 group hover:bg-primary/5 transition-all relative active:bg-primary/10"
+          >
+            <div
+              class="absolute top-0 left-0 w-full h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-right"
+            ></div>
+
+            <div
+              class="mb-3 p-2 rounded-xl bg-neutral-100 dark:bg-white/5 text-neutral-600 dark:text-neutral-300 group-hover:text-primary group-hover:scale-110 transition-all duration-300 shadow-sm"
+            >
+              <i data-lucide="repeat" class="w-6 h-6"></i>
+            </div>
+            <span
+              class="font-tech font-bold uppercase tracking-wider text-xs text-neutral-800 dark:text-white"
+            >
+              Trocar
+            </span>
+          </button>
+        </div>
+      </section>
+
+      <!-- SIMULADOR FINANCEIRO -->
+      <section class="px-5 mb-10 relative z-10">
+        <div class="glass-panel rounded-3xl p-1 relative overflow-hidden group">
+          <div
+            class="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 blur-[80px] rounded-full pointer-events-none"
+          ></div>
+
+          <div
+            class="bg-white/40 dark:bg-neutral-900/60 rounded-[1.3rem] p-6 backdrop-blur-md relative z-10 border border-white/20 dark:border-white/5"
+          >
+            <div class="flex justify-between items-start mb-6">
+              <div>
+                <h3
+                  class="font-tech text-2xl font-bold text-neutral-800 dark:text-white flex items-center gap-2"
+                >
+                  <i data-lucide="calculator" class="w-5 h-5 text-primary"></i>
+                  Simulador
+                </h3>
+                <p
+                  class="text-xs text-neutral-500 dark:text-neutral-400 font-medium mt-1"
+                >
+                  Calcule parcelas em tempo real
+                </p>
+              </div>
+              <span
+                class="bg-status-success/10 text-status-success border border-status-success/20 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider"
+              >
+                Online
+              </span>
+            </div>
+
+            <div class="space-y-5">
+              <div class="space-y-1.5">
+                <label
+                  class="text-[10px] uppercase text-primary font-bold tracking-widest ml-1"
+                >
+                  Selecione a Máquina
+                </label>
+                <div class="relative group/input">
+                  <select
+                    id="sim-bike"
+                    aria-label="Selecione a Máquina"
+                    class="w-full bg-neutral-50 dark:bg-black/30 border border-neutral-200 dark:border-neutral-700 rounded-xl px-4 py-3.5 text-sm text-neutral-800 dark:text-neutral-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none appearance-none font-medium transition-all cursor-pointer hover:border-primary/50"
+                  >
+                    <option value="0">Escolha o modelo...</option>
+                  </select>
+                  <i
+                    data-lucide="chevron-down"
+                    class="absolute right-4 top-3.5 w-5 h-5 text-neutral-400 group-focus-within/input:text-primary transition-colors pointer-events-none"
+                  ></i>
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <label
+                  class="text-[10px] uppercase text-primary font-bold tracking-widest ml-1"
+                >
+                  Instituição Financeira
+                </label>
+                <div class="relative group/input">
+                  <select
+                    id="sim-bank"
+                    aria-label="Selecione a Instituição Financeira"
+                    class="w-full bg-neutral-50 dark:bg-black/30 border border-neutral-200 dark:border-neutral-700 rounded-xl px-4 py-3.5 text-sm text-neutral-800 dark:text-neutral-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none appearance-none font-medium transition-all cursor-pointer hover:border-primary/50"
+                  >
+                    <option value="0">Selecione o banco...</option>
+                  </select>
+                  <i
+                    data-lucide="chevron-down"
+                    class="absolute right-4 top-3.5 w-5 h-5 text-neutral-400 group-focus-within/input:text-primary transition-colors pointer-events-none"
+                  ></i>
+                </div>
+              </div>
+
+              <button
+                onclick="calculateSimulation()"
+                class="w-full py-4 bg-neutral-900 dark:bg-white text-white dark:text-black hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white rounded-xl font-tech font-bold text-lg uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-neon transform active:scale-[0.98] flex justify-center items-center gap-2 mt-4"
+              >
+                <i data-lucide="zap" class="w-5 h-5"></i>
+                Calcular Parcelas
+              </button>
+
+              <div
+                id="sim-result"
+                class="hidden mt-6 overflow-hidden relative rounded-xl border border-primary/20 bg-primary/5 dark:bg-primary/10 p-5 animate-scale-in transition-all"
+              >
+                <div
+                  class="absolute top-0 left-0 w-1.5 h-full bg-primary shadow-[0_0_10px_theme('colors.primary.DEFAULT')]"
+                ></div>
+
+                <div
+                  class="flex justify-between items-center relative z-10 w-full"
+                >
+                  <div class="flex flex-col justify-center">
+                    <p
+                      class="text-[10px] text-neutral-500 dark:text-neutral-400 uppercase font-bold tracking-widest mb-1"
+                    >
+                      Parcela Estimada
+                    </p>
+                    <div class="flex items-center gap-1">
+                      <span
+                        class="bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 text-[9px] px-1.5 py-0.5 rounded font-bold"
+                        >48x</span
+                      >
+                      <p class="text-[9px] text-neutral-400 leading-tight">
+                        *Sujeito a análise.
+                      </p>
+                    </div>
+                  </div>
+
+                  <p
+                    id="sim-price-display"
+                    class="font-tech text-4xl font-bold text-primary drop-shadow-lg tracking-tight pl-6"
+                  >
+                    R$ 0,00
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MOTOS EM DESTAQUE -->
+      <section class="mb-12 relative z-10">
+        <div
+          class="h-px w-full bg-gradient-to-r from-transparent via-neutral-200 dark:via-neutral-700 to-transparent mb-6 opacity-50"
+        ></div>
+
+        <div class="px-5 flex items-end justify-between mb-5">
+          <div>
+            <h2
+              class="font-tech text-3xl font-bold uppercase text-neutral-900 dark:text-white leading-none"
+            >
+              Estoque
+              <span
+                class="text-primary block text-sm tracking-[0.3em] font-sans mt-1"
+                >em destaque</span
+              >
+            </h2>
+          </div>
+
+          <a
+            href="https://wa.me/c/556292124400"
+            class="group flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-primary transition-colors"
+          >
+            catalago completo
+            <i
+              data-lucide="arrow-right"
+              class="w-4 h-4 transition-transform group-hover:translate-x-1"
+            ></i>
+          </a>
+        </div>
+
+        <div
+          id="bikes-grid"
+          class="flex overflow-x-auto gap-4 px-5 pb-8 hide-scroll snap-x snap-mandatory scroll-pl-5"
+        >
+          <div
+            class="min-w-[280px] h-[320px] bg-neutral-100 dark:bg-white/5 rounded-2xl animate-pulse snap-center"
+          ></div>
+          <div
+            class="min-w-[280px] h-[320px] bg-neutral-100 dark:bg-white/5 rounded-2xl animate-pulse snap-center"
+          ></div>
+        </div>
+      </section>
+
+      <!-- LOCALIZAÇÃO E RODAPÉ -->
+      <footer class="mt-10 relative z-10 px-4 pb-4">
+        <div
+          class="glass-panel rounded-3xl pt-10 pb-8 px-6 text-center border-t border-white/40 dark:border-white/5 relative overflow-hidden"
+        >
+          <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+          ></div>
+
+          <div class="mb-6">
+            <h3
+              class="font-tech text-xl font-bold uppercase mb-3 text-neutral-900 dark:text-white tracking-wider"
+            >
+              Venha nos visitar
+            </h3>
+
+            <p
+              id="address-text"
+              class="text-neutral-500 dark:text-neutral-400 text-sm max-w-xs mx-auto leading-relaxed font-medium"
+            ></p>
+          </div>
+
+          <div
+            class="mb-8 relative z-10 group overflow-hidden rounded-3xl shadow-lg border border-white/20 dark:border-white/5"
+          >
+            <div
+              class="relative w-full h-64 bg-neutral-200 dark:bg-neutral-800"
+            >
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d238.93503917814138!2d-49.330098975417634!3d-16.628745106855604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef56e11e2954f%3A0xe1152c38548d3759!2sJAPAN%20MOTORS!5e0!3m2!1spt-BR!2sbr!4v1765509341046!5m2!1spt-BR!2sbr"
+                width="600"
+                height="450"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+
+              <div
+                class="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:opacity-0 transition-opacity duration-500"
+              >
+                <div
+                  class="bg-white/80 dark:bg-black/60 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/20 shadow-lg"
+                >
+                  <p
+                    class="font-tech text-sm font-bold uppercase text-neutral-800 dark:text-white flex items-center gap-2"
+                  >
+                    <i data-lucide="map-pin" class="w-4 h-4 text-primary"></i>
+                    Toque para explorar
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="max-w-sm mx-auto grid grid-cols-2 gap-3 mb-10">
+            <a
+              id="btn-waze"
+              href="https://maps.app.goo.gl/D3eyAd6hV4YBFZUC6"
+              target="_blank"
+              class="group col-span-1 px-4 py-3 rounded-xl bg-white/50 dark:bg-white/5 border border-neutral-200 dark:border-white/10 hover:border-[#33ccff] hover:bg-[#33ccff]/5 transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              <i
+                data-lucide="navigation"
+                class="w-4 h-4 text-neutral-400 group-hover:text-[#33ccff] transition-colors"
+              ></i>
+              <span
+                class="text-xs font-bold uppercase text-neutral-600 dark:text-neutral-300 group-hover:text-[#33ccff]"
+                >Waze</span
+              >
+            </a>
+
+            <a
+              id="btn-google"
+              href="https://maps.app.goo.gl/D3eyAd6hV4YBFZUC6"
+              target="_blank"
+              class="group col-span-1 px-4 py-3 rounded-xl bg-white/50 dark:bg-white/5 border border-neutral-200 dark:border-white/10 hover:border-[#EA4335] hover:bg-[#EA4335]/5 transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              <i
+                data-lucide="map-pin"
+                class="w-4 h-4 text-neutral-400 group-hover:text-[#EA4335] transition-colors"
+              ></i>
+              <span
+                class="text-xs font-bold uppercase text-neutral-600 dark:text-neutral-300 group-hover:text-[#EA4335]"
+                >Google</span
+              >
+            </a>
+
+            <a
+              id="btn-apple"
+              href="https://maps.app.goo.gl/D3eyAd6hV4YBFZUC6"
+              target="_blank"
+              class="group col-span-2 px-4 py-3 rounded-xl bg-white/50 dark:bg-white/5 border border-neutral-200 dark:border-white/10 hover:border-neutral-900 dark:hover:border-white hover:bg-neutral-100 dark:hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              <i
+                data-lucide="map"
+                class="w-4 h-4 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors"
+              ></i>
+              <span
+                class="text-xs font-bold uppercase text-neutral-600 dark:text-neutral-300 group-hover:text-neutral-900 dark:group-hover:text-white"
+                >Apple Maps</span
+              >
+            </a>
+          </div>
+
+          <div
+            class="flex justify-center gap-6 mb-8 pt-8 border-t border-neutral-200/60 dark:border-white/10 w-3/4 mx-auto"
+          >
+            <a
+              id="footer-insta"
+              href="#"
+              class="w-12 h-12 rounded-full bg-neutral-100 dark:bg-white/5 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500 transition-all duration-300 hover:scale-110 shadow-sm"
+            >
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+            <a
+              id="footer-whats"
+              href="#"
+              class="w-12 h-12 rounded-full bg-neutral-100 dark:bg-white/5 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-green-500 transition-all duration-300 hover:scale-110 shadow-sm"
+            >
+              <i data-lucide="message-circle" class="w-5 h-5"></i>
+            </a>
+          </div>
+
+          <div class="text-center">
+            <p
+              class="text-[10px] text-neutral-400 dark:text-neutral-500 uppercase tracking-[0.2em] font-medium"
+            >
+              &copy; <span id="current-year"></span> Japan Motors
+            </p>
+            <p
+              class="text-[9px] text-neutral-300 dark:text-neutral-600 mt-1 font-tech tracking-wider"
+            >
+              Excelência em duas rodas
+            </p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- ================= MODAIS ================= -->
+
+    <div id="modal-venda" class="modal-overlay">
+      <div
+        class="modal-content w-full max-w-sm glass-panel rounded-3xl p-6 relative border border-white/20 dark:border-white/5 bg-white/80 dark:bg-neutral-900/90 shadow-2xl"
+      >
+        <button
+          onclick="closeModal('modal-venda')"
+          class="absolute top-4 right-4 p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-white/10 text-neutral-400 transition-colors"
+        >
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <div class="text-center mb-6 pt-2">
+          <div
+            class="w-14 h-14 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4 text-green-500 ring-1 ring-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.2)]"
+          >
+            <i data-lucide="dollar-sign" class="w-7 h-7"></i>
+          </div>
+          <h3
+            class="font-tech text-2xl font-bold uppercase text-neutral-900 dark:text-white"
+          >
+            Venda sua Moto
+          </h3>
+          <p
+            class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 font-medium tracking-wide"
+          >
+            Avaliação rápida e pagamento justo
+          </p>
+        </div>
+
+        <div
+          class="space-y-3 text-sm bg-neutral-50 dark:bg-white/5 p-5 rounded-2xl mb-6 border border-neutral-100 dark:border-white/5"
+        >
+          <p
+            class="font-bold text-neutral-800 dark:text-white text-xs uppercase tracking-wider mb-2"
+          >
+            O que precisamos:
+          </p>
+          <ul class="space-y-2 text-xs text-neutral-600 dark:text-neutral-300">
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-3 h-3 text-green-500"></i> Fotos
+              detalhadas (frente e verso)
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-3 h-3 text-green-500"></i> Modelo
+              e Ano exatos
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-3 h-3 text-green-500"></i>
+              Quilometragem atual
+            </li>
+          </ul>
+        </div>
+
+        <a
+          id="btn-modal-venda"
+          href="#"
+          class="block w-full py-3.5 bg-green-600 hover:bg-green-500 text-white font-tech font-bold text-lg text-center rounded-xl uppercase tracking-wider transition-all shadow-lg hover:shadow-green-500/30 hover:-translate-y-1"
+        >
+          Enviar Fotos Agora
+        </a>
+      </div>
+    </div>
+
+    <div id="modal-compra" class="modal-overlay">
+      <div
+        class="modal-content w-full max-w-sm glass-panel rounded-3xl p-6 relative border border-white/20 dark:border-white/5 bg-white/80 dark:bg-neutral-900/90 shadow-2xl"
+      >
+        <button
+          onclick="closeModal('modal-compra')"
+          class="absolute top-4 right-4 p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-white/10 text-neutral-400 transition-colors"
+        >
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <div class="text-center mb-6 pt-2">
+          <div
+            class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary ring-1 ring-primary/20 shadow-[0_0_15px_rgba(37,99,235,0.2)]"
+          >
+            <i data-lucide="shopping-bag" class="w-7 h-7"></i>
+          </div>
+          <h3
+            class="font-tech text-2xl font-bold uppercase text-neutral-900 dark:text-white"
+          >
+            Nova Aquisição
+          </h3>
+          <p
+            class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 font-medium tracking-wide"
+          >
+            Explore nosso estoque completo
+          </p>
+        </div>
+
+        <p
+          class="text-center text-sm text-neutral-600 dark:text-neutral-300 mb-8 px-4 leading-relaxed"
+        >
+          Temos as melhores taxas do mercado e parcelamento facilitado em até
+          48x. Consulte nosso catálogo digital.
+        </p>
+
+        <a
+          id="btn-modal-compra"
+          href="#"
+          class="block w-full py-3.5 bg-primary hover:bg-primary-hover text-white font-tech font-bold text-lg text-center rounded-xl uppercase tracking-wider transition-all shadow-lg hover:shadow-neon hover:-translate-y-1"
+        >
+          Ver Catálogo
+        </a>
+      </div>
+    </div>
+
+    <div id="modal-troca" class="modal-overlay">
+      <div
+        class="modal-content w-full max-w-sm glass-panel rounded-3xl p-6 relative border border-white/20 dark:border-white/5 bg-white/80 dark:bg-neutral-900/90 shadow-2xl"
+      >
+        <button
+          onclick="closeModal('modal-troca')"
+          class="absolute top-4 right-4 p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-white/10 text-neutral-400 transition-colors"
+        >
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <div class="text-center mb-6 pt-2">
+          <div
+            class="w-14 h-14 bg-status-warning/10 rounded-full flex items-center justify-center mx-auto mb-4 text-status-warning ring-1 ring-status-warning/20 shadow-[0_0_15px_rgba(245,158,11,0.2)]"
+          >
+            <i data-lucide="repeat" class="w-7 h-7"></i>
+          </div>
+          <h3
+            class="font-tech text-2xl font-bold uppercase text-neutral-900 dark:text-white"
+          >
+            Troca com Troco
+          </h3>
+          <p
+            class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 font-medium tracking-wide"
+          >
+            Use sua moto como entrada
+          </p>
+        </div>
+
+        <div
+          class="space-y-3 text-sm bg-neutral-50 dark:bg-white/5 p-5 rounded-2xl mb-6 border border-neutral-100 dark:border-white/5"
+        >
+          <p
+            class="text-center text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed"
+          >
+            Aceitamos sua usada na troca. Envie os dados da sua moto e diga qual
+            modelo do nosso estoque você tem interesse.
+          </p>
+        </div>
+
+        <a
+          id="btn-modal-troca"
+          href="#"
+          class="block w-full py-3.5 bg-neutral-900 dark:bg-white hover:bg-neutral-800 text-white dark:text-black font-tech font-bold text-lg text-center rounded-xl uppercase tracking-wider transition-all shadow-lg hover:-translate-y-1"
+        >
+          Simular Troca
+        </a>
+      </div>
+    </div>
+
+    <div id="modal-bike-details" class="modal-overlay">
+      <div
+        class="modal-content w-full max-w-md glass-panel rounded-3xl overflow-hidden relative border border-white/20 dark:border-white/5 bg-white dark:bg-neutral-900 shadow-2xl m-4"
+      >
+        <div class="relative h-64">
+          <img id="modal-bike-img" src="" class="w-full h-full object-cover" />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-neutral-900 to-transparent"
+          ></div>
+
+          <button
+            onclick="closeModal('modal-bike-details')"
+            class="absolute top-4 right-4 w-10 h-10 bg-black/50 backdrop-blur rounded-full text-white flex items-center justify-center hover:bg-primary transition-colors"
+          >
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+
+          <div class="absolute bottom-4 left-5 right-5">
+            <span
+              id="modal-bike-tag"
+              class="bg-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-widest shadow-lg mb-2 inline-block"
+            ></span>
+            <h2
+              id="modal-bike-model"
+              class="font-tech text-3xl font-bold text-white leading-none shadow-black drop-shadow-md"
+            ></h2>
+          </div>
+        </div>
+
+        <div class="p-6">
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div
+              class="bg-neutral-50 dark:bg-white/5 p-3 rounded-xl border border-neutral-100 dark:border-white/5"
+            >
+              <span
+                class="text-[10px] text-neutral-400 uppercase tracking-widest block mb-1"
+                >Ano</span
+              >
+              <span
+                id="modal-bike-year"
+                class="font-tech text-lg font-bold text-neutral-800 dark:text-white"
+              ></span>
+            </div>
+            <div
+              class="bg-neutral-50 dark:bg-white/5 p-3 rounded-xl border border-neutral-100 dark:border-white/5"
+            >
+              <span
+                class="text-[10px] text-neutral-400 uppercase tracking-widest block mb-1"
+                >Km</span
+              >
+              <span
+                id="modal-bike-km"
+                class="font-tech text-lg font-bold text-neutral-800 dark:text-white"
+              ></span>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between mt-4">
+            <div>
+              <span
+                class="text-[10px] text-neutral-400 uppercase tracking-wider block"
+                >Preço Especial</span
+              >
+              <span
+                id="modal-bike-price"
+                class="font-tech text-3xl font-bold text-primary"
+              ></span>
+            </div>
+            <a
+              id="modal-bike-btn"
+              href="#"
+              target="_blank"
+              class="px-6 py-3 bg-primary hover:bg-primary-hover text-white font-bold rounded-xl shadow-neon transition-all hover:scale-105 flex items-center gap-2"
+            >
+              <span>Tenho Interesse</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.add("active");
+          document.body.style.overflow = "hidden";
+        }
+      }
+
+      function closeModal(modalId) {
+        const modal =
+          typeof modalId === "string"
+            ? document.getElementById(modalId)
+            : modalId;
+        if (modal) {
+          modal.classList.remove("active");
+          document.body.style.overflow = ""; // Destrava o scroll
+        }
+      }
+
+      document.querySelectorAll(".modal-overlay").forEach((overlay) => {
+        overlay.addEventListener("click", (e) => {
+          if (e.target === overlay) {
+            closeModal(overlay);
+          }
+        });
+      });
+
+      function openBikeModal(id) {
+        const bike = CONFIG.bikes.find((b) => b.id === id);
+        if (!bike) return;
+
+        // Preencher os dados no HTML do Modal
+        document.getElementById("modal-bike-img").src = bike.img;
+        document.getElementById("modal-bike-tag").innerText = bike.tag;
+        document.getElementById("modal-bike-model").innerText = bike.model;
+        document.getElementById("modal-bike-year").innerText = bike.year;
+        document.getElementById("modal-bike-km").innerText = bike.km;
+        document.getElementById("modal-bike-price").innerText = formatMoney(
+          bike.price
+        );
+
+        // Configurar o botão do WhatsApp com mensagem personalizada
+        const msg = encodeURIComponent(
+          `Olá! Vi a *${bike.model}* no site e tenho interesse.`
+        );
+        document.getElementById(
+          "modal-bike-btn"
+        ).href = `https://wa.me/${CONFIG.whatsapp}?text=${msg}`;
+
+        // Abrir o modal
+        openModal("modal-bike-details");
+      }
+
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+
+      // --- FUNÇÕES AUXILIARES ---
+      const formatMoney = (value) => {
+        return value.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+      };
+
+      // --- CONFIGURAÇÃO GERAL ---
+      const CONFIG = {
+        name: "Japan Motors",
+        whatsapp: "556292124400",
+        catalogLink: "https://wa.me/c/556292124400",
+        address:
+          "Av. Contorno, QD35 - LT 39 - Jardim Colorado, Goiânia - GO, 74474-048",
+        addressQuery: "Japan Motors Goiania",
+        logoUrl: "https://i.im.ge/2025/12/12/4vPKLa.sss.png",
+
+        banks: [
+          { name: "Banco Santander", interest: 0.15 },
+          { name: "Banco Pan", interest: 0.2 },
+          { name: "Banco BV", interest: 0.18 },
+          { name: "Banco Bradesco", interest: 0.16 },
+          { name: "Banco Safra", interest: 0.22 },
+        ],
+
+        bikes: [
+          {
+            id: 1,
+            model: "Honda Titan 160",
+            year: "2024",
+            km: "0km",
+            price: 18900,
+            tag: "Líder de Vendas",
+            img: "https://placehold.co/600x400/EEE/333?text=Titan+160",
+          },
+          {
+            id: 2,
+            model: "Yamaha MT-03",
+            year: "2022",
+            km: "12.000km",
+            price: 29500,
+            tag: "Naked",
+            img: "https://placehold.co/600x400/EEE/333?text=MT-03",
+          },
+          {
+            id: 3,
+            model: "Honda PCX 150",
+            year: "2023",
+            km: "5.000km",
+            price: 19800,
+            tag: "Scooter",
+            img: "https://placehold.co/600x400/EEE/333?text=PCX+150",
+          },
+          {
+            id: 4,
+            model: "Honda XRE 300",
+            year: "2021",
+            km: "25.000km",
+            price: 26900,
+            tag: "Adventure",
+            img: "https://placehold.co/600x400/EEE/333?text=XRE+300",
+          },
+          {
+            id: 5,
+            model: "BMW G310 R",
+            year: "2022",
+            km: "8.000km",
+            price: 31000,
+            tag: "Premium",
+            img: "https://placehold.co/600x400/EEE/333?text=BMW+G310",
+          },
+        ],
+      };
+
+      // --- FUNÇÃO DE RENDERIZAÇÃO DOS CARDS (GRID) ---
+      function renderFeaturedBikes() {
+        const container = document.getElementById("bikes-grid");
+        if (!container) return;
+
+        container.innerHTML = CONFIG.bikes
+          .map(
+            (bike) => `
+        <div class="snap-center shrink-0 w-[280px] glass-panel rounded-2xl overflow-hidden group relative transition-all duration-300 hover:-translate-y-2 border border-neutral-100 dark:border-white/5 bg-white dark:bg-neutral-900">
+            
+            <div class="relative h-48 overflow-hidden bg-neutral-100 dark:bg-white/5">
+                <span class="absolute top-3 left-3 bg-primary text-white text-[10px] font-tech font-bold uppercase tracking-widest px-3 py-1.5 rounded shadow-lg z-10">
+                    ${bike.tag}
+                </span>
+                
+                <img src="${bike.img}" alt="${
+              bike.model
+            }" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+
+            <div class="p-5 flex flex-col gap-2">
+                
+                <div>
+                    <h3 class="font-tech text-xl font-bold text-neutral-800 dark:text-white leading-tight truncate">
+                        ${bike.model}
+                    </h3>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-xs text-neutral-500 font-medium">${
+                          bike.year
+                        }</span>
+                        <span class="w-1 h-1 bg-neutral-300 rounded-full"></span>
+                        <span class="text-xs text-neutral-500 font-medium">${
+                          bike.km
+                        }</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-4 mt-2 border-t border-neutral-200 dark:border-neutral-700">
+                    <div class="flex flex-col">
+                        <span class="text-[9px] text-neutral-400 uppercase tracking-wider font-bold">A vista</span>
+                        <span class="font-tech text-xl font-bold text-primary">${formatMoney(
+                          bike.price
+                        )}</span>
+                    </div>
+                    
+                    <a href="https://wa.me/${
+                      CONFIG.whatsapp
+                    }?text=Tenho interesse na ${bike.model}" 
+                       target="_blank"
+                       class="w-10 h-10 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-black flex items-center justify-center hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white transition-all shadow-lg group-hover:shadow-neon group-hover:scale-105">
+                        <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+      `
+          )
+          .join("");
+
+        // Importante: Recarregar os ícones após inserir o HTML
+        if (typeof lucide !== "undefined") {
+          lucide.createIcons();
+        }
+      }
+
+      // --- INICIALIZAÇÃO AO CARREGAR A PÁGINA ---
+      window.onload = function () {
+        try {
+          const logoEl = document.getElementById("logo-img");
+          if (logoEl) logoEl.src = CONFIG.logoUrl;
+
+          const addressEl = document.getElementById("address-text");
+          if (addressEl) addressEl.innerText = CONFIG.address;
+        } catch (e) {
+          console.log("Elementos básicos ainda não inseridos");
+        }
+
+        const wppLink = `https://wa.me/${CONFIG.whatsapp}`;
+
+        const setHref = (id, url) => {
+          const el = document.getElementById(id);
+          if (el) el.href = url;
+        };
+
+        setHref("btn-whatsapp-main", wppLink);
+        setHref("footer-whats", wppLink);
+        setHref("btn-catalog", CONFIG.catalogLink);
+        setHref("btn-modal-compra", CONFIG.catalogLink);
+        setHref("footer-insta", "https://instagram.com/japanmotors");
+
+        const encodedAddress = encodeURIComponent(CONFIG.addressQuery);
+        setHref(
+          "btn-google",
+          `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`
+        );
+        setHref("btn-waze", `https://waze.com/ul?q=${encodedAddress}`);
+        setHref("btn-apple", `http://maps.apple.com/?q=${encodedAddress}`);
+
+        // 4. Links Modais
+        const msgVenda = encodeURIComponent(
+          "Olá! Quero vender minha moto. Seguem os detalhes:"
+        );
+        setHref(
+          "btn-modal-venda",
+          `https://wa.me/${CONFIG.whatsapp}?text=${msgVenda}`
+        );
+
+        const msgTroca = encodeURIComponent(
+          "Olá! Tenho interesse em fazer uma troca. Gostaria de agendar uma avaliação."
+        );
+        setHref(
+          "btn-modal-troca",
+          `https://wa.me/${CONFIG.whatsapp}?text=${msgTroca}`
+        );
+
+        const bikeSelect = document.getElementById("sim-bike");
+        if (bikeSelect) {
+          CONFIG.bikes.forEach((bike) => {
+            let opt = document.createElement("option");
+            opt.value = bike.id;
+            opt.innerText = `${bike.model} - ${formatMoney(bike.price)}`;
+            bikeSelect.appendChild(opt);
+          });
+        }
+
+        const bankSelect = document.getElementById("sim-bank");
+        if (bankSelect) {
+          CONFIG.banks.forEach((bank) => {
+            let opt = document.createElement("option");
+            opt.value = bank.interest;
+            opt.innerText = `${bank.name}`;
+            bankSelect.appendChild(opt);
+          });
+        }
+
+        renderFeaturedBikes();
+
+        if (typeof lucide !== "undefined") {
+          lucide.createIcons();
+        }
+
+        const preloader = document.getElementById("preloader");
+        const app = document.getElementById("app");
+
+        if (preloader) {
+          setTimeout(() => {
+            preloader.style.opacity = "0";
+            if (app) {
+              app.classList.remove("opacity-0");
+              app.classList.add("animate-slide-up");
+            }
+
+            setTimeout(() => {
+              preloader.classList.add("hidden");
+            }, 600);
+          }, 1500);
+        }
+      };
+
+      function calculateSimulation() {
+        const bikeSelect = document.getElementById("sim-bike");
+        const bankSelect = document.getElementById("sim-bank");
+        const resultDiv = document.getElementById("sim-result");
+        const priceDisplay = document.getElementById("sim-price-display");
+
+        const bikeId = parseInt(bikeSelect.value);
+        const interestRate = parseFloat(bankSelect.value);
+
+        if (bikeId === 0 || isNaN(interestRate)) {
+          const btn = document.querySelector(
+            'button[onclick="calculateSimulation()"]'
+          );
+          btn.classList.add("animate-pulse");
+          setTimeout(() => btn.classList.remove("animate-pulse"), 500);
+          return;
+        }
+
+        const bike = CONFIG.bikes.find((b) => b.id === bikeId);
+        if (!bike) return;
+
+        const totalAmount = bike.price * (1 + interestRate);
+        const monthlyInstallment = totalAmount / 48;
+
+        priceDisplay.innerText = monthlyInstallment.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+
+        resultDiv.classList.remove("hidden");
+        resultDiv.classList.add("flex");
+      }
+    </script>
+  </body>
+</html>
